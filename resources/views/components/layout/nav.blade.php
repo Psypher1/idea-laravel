@@ -8,6 +8,7 @@
 
         </div>
         @auth
+            <a href="/ideas">Ideas</a>
             <div class= "flex gap-x-6 items-center">
                 <form action="/signout" method="POST">
                     @csrf
