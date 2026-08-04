@@ -1,14 +1,22 @@
 <x-layout>
-    <section class="py-6 md:py-12`">
+    <section class="py-6 md:py-12">
         <header>
-
             <h1 class="text-2xl font-bold">Ideas</h1>
             <p class="text-muted-foreground mt-1">Capture your thoughte. Make a plan.</p>
         </header>
 
-        <div class="mt-10 text-muted-foreground">
+        <div class="mt-10">
+            <a href="/ideas" class="btn {{ request()->has('status') ? 'btn-outlined' : '' }} ">All</a>
+            @foreach (App\IdeaStatus::cases() as $status)
+                <a href="/ideas?status={{ $status->value }}"
+                    class="btn {{ request('status') === $status->value ? '' : 'btn-outlined' }}">{{ $status->label() }}
+                    <span class="text-xs pl-2">{{ $statusCounts->get($status->value) }}</span>
+                </a>
+            @endforeach
+        </div>
 
-            <div class="grid grid-cols-2 gap-6">
+        <div class="mt-5 text-muted-foreground">
+            <div class="grid md:grid-cols-2 gap-6">
 
                 @forelse ($ideas as $idea)
                     {{-- href="{{ $idea->path() }}">  - method in Idea model --}}

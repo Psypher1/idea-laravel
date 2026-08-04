@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIdeaRequest;
 use App\Http\Requests\UpdateIdeaRequest;
+use App\IdeaStatus;
 use App\Models\Idea;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class IdeaController extends Controller
@@ -12,10 +14,33 @@ class IdeaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ideas = Auth::user()->ideas()->get();
-        return view('idea.index', ['ideas' => $ideas]);
+
+        // ->where('status', request('status', 'all'))
+        $user = Auth::user();
+
+        $status = $request->status;
+
+        if (! in_array($status, IdeaStatus::values())) {
+            $status = null;
+        }
+
+        $ideas = $user
+            ->ideas()
+            ->when($request->status, fn ($query, $status) => $query->where('status', $status))
+            ->get();
+
+        // $statusCounts = Idea::query()->selectRaw('status, count(*) as count')->groupBy('status')->get();
+
+        // MOVED To MODEL
+        // $counts = Auth::user()->ideas()->selectRaw('status, count(*) as count')->groupBy('status')->pluck('count', 'status');
+
+        // $statusCounts = collect(IdeaStatus::cases())->mapWithKeys(fn($status) => [
+        //     $status->value => $counts->get($status->value, 0)
+        // ])->put('all', Auth::user()->ideas->count());
+
+        return view('idea.index', ['ideas' => $ideas, 'statusCounts' => Idea::statusCounts($user)]);
     }
 
     /**
@@ -39,7 +64,7 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        //
+        return view('idea.show');
     }
 
     /**
