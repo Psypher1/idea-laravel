@@ -1,5 +1,15 @@
 <x-layout>
-    <x-layout.section title="Ideas" subtitle="Capture your thoughte. Make a plan.">
+    <x-layout.section>
+
+        <header>
+            <h1 class="text-2xl font-bold">Ideas</h1>
+            <p class="text-muted-foreground mt-1">Capture your thoughts. Make a plan</p>
+
+            <x-card x-data @click="$dispatch('open-modal', 'create-idea')" is="button" type="button"
+                class="mt-5 cursor-pointer w-full">
+                What's the idea?
+            </x-card>
+        </header>
 
         <div class="mt-10">
             <a href="/ideas" class="btn {{ request()->has('status') ? 'btn-outlined' : '' }} ">All</a>
@@ -32,5 +42,10 @@
                 @endforelse
             </div>
         </div>
+
+        {{-- modal --}}
+        <x-modal name="create-idea" title="New Idea">
+            <p>sexy inside stuff</p>
+        </x-modal>
     </x-layout.section>
 </x-layout>
