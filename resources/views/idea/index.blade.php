@@ -1,9 +1,5 @@
 <x-layout>
-    <section class="py-6 md:py-12">
-        <header>
-            <h1 class="text-2xl font-bold">Ideas</h1>
-            <p class="text-muted-foreground mt-1">Capture your thoughte. Make a plan.</p>
-        </header>
+    <x-layout.section title="Ideas" subtitle="Capture your thoughte. Make a plan.">
 
         <div class="mt-10">
             <a href="/ideas" class="btn {{ request()->has('status') ? 'btn-outlined' : '' }} ">All</a>
@@ -31,10 +27,10 @@
                     </x-card>
                 @empty
                     <x-card>
-                        <p>No ideas yet</p>
+                        <p>No ideas to show</p>
                     </x-card>
                 @endforelse
             </div>
         </div>
-    </section>
+    </x-layout.section>
 </x-layout>

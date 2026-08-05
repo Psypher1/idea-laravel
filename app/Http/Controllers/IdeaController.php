@@ -22,13 +22,13 @@ class IdeaController extends Controller
 
         $status = $request->status;
 
-        if (! in_array($status, IdeaStatus::values())) {
+        if (!in_array($status, IdeaStatus::values())) {
             $status = null;
         }
 
         $ideas = $user
             ->ideas()
-            ->when($request->status, fn ($query, $status) => $query->where('status', $status))
+            ->when($request->status, fn($query, $status) => $query->where('status', $status))
             ->get();
 
         // $statusCounts = Idea::query()->selectRaw('status, count(*) as count')->groupBy('status')->get();
@@ -64,7 +64,7 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        return view('idea.show');
+        return view('idea.show', ['idea' => $idea]);
     }
 
     /**
@@ -88,6 +88,11 @@ class IdeaController extends Controller
      */
     public function destroy(Idea $idea)
     {
-        //
+        // authorise that this is allowed
+        $idea->delete();
+
+        // return redirect()->route('idea.index');
+        // return redirect('/ideas');
+        return to_route('idea.index');
     }
 }
