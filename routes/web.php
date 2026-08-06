@@ -20,6 +20,7 @@ Route::redirect('/', '/ideas');
 // });
 
 Route::get('/ideas', [IdeaController::class, 'index'])->name('idea.index')->middleware('auth');
+Route::post('/ideas', [IdeaController::class, 'store'])->name('idea.store')->middleware('auth');
 Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('idea.show')->middleware('auth');
 Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('idea.destroy')->middleware('auth');
 

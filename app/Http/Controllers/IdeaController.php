@@ -29,6 +29,7 @@ class IdeaController extends Controller
         $ideas = $user
             ->ideas()
             ->when($request->status, fn($query, $status) => $query->where('status', $status))
+            ->latest()
             ->get();
 
         // $statusCounts = Idea::query()->selectRaw('status, count(*) as count')->groupBy('status')->get();
@@ -56,7 +57,9 @@ class IdeaController extends Controller
      */
     public function store(StoreIdeaRequest $request)
     {
-        //
+        Auth::user()->ideas()->create($request->validated());
+
+        return to_route('idea.index')->with('success', 'Your idea has been created');
     }
 
     /**

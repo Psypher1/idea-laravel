@@ -6,7 +6,7 @@
             <p class="text-muted-foreground mt-1">Capture your thoughts. Make a plan</p>
 
             <x-card x-data @click="$dispatch('open-modal', 'create-idea')" is="button" type="button"
-                class="mt-5 cursor-pointer w-full">
+                class="mt-5 cursor-pointer  w-full">
                 What's the idea?
             </x-card>
         </header>
@@ -45,7 +45,30 @@
 
         {{-- modal --}}
         <x-modal name="create-idea" title="New Idea">
-            <p>sexy inside stuff</p>
+            <form x-data="{ status: 'pending' }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
+                @csrf
+                <x-form.field name="title" label="Title" placeholder="Enter title for your idea" autofocus
+                    required />
+                <div class="space-y-2">
+                    <label for="status" class="label">Status</label>
+                    <div class="flex gap-x-3">
+                        @foreach (App\IdeaStatus::cases() as $status)
+                            <button type="button" @click="status = @js($status->value)"
+                                class="btn  h-10 flex-1" {{-- :class="status === @js($status->value) ? '' : 'btn-outlined'" --}}
+                                :class="{ 'btn-outlined': status !== @js($status->value) }">{{ $status->label() }}</button>
+                        @endforeach
+                        <input class="input" type="hidden" name="status" :value="status" />
+                    </div>
+                    <x-form.error name="status" />
+                </div>
+                <x-form.field type="textarea" name="description" label="Description" placeholder="Enter description" />
+                <div class="flex justify-end gap-x-5">
+                    <button type="button" @click="$dispatch('close-modal')" class="btn btn-outlined">Cancel</button>
+                    <button type="submit" class="btn ">Create Idea</button>
+                </div>
+            </form>
         </x-modal>
     </x-layout.section>
 </x-layout>
+
+{{-- in this file, Jeffery created another dispach for closing the modal, i dont think that was necessary --}}

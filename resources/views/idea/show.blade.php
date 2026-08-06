@@ -3,7 +3,8 @@
 
         <div class="max-w-4xl py-8 mx-auto">
             <div class="flex items-center justify-between">
-                <a href="{{ route('idea.index') }}" class="flex items-center gap-x-2 text-sm font-medium">
+                <a href="{{ route('idea.index') }}"
+                    class="flex items-center gap-x-2 text-sm font-medium btn btn-outlined">
                     <x-icons.arrow-back />
                     Back to Ideas</a>
 
@@ -47,7 +48,8 @@
                     @if ($idea->links->count())
                         <div class="mt-3 space-y-2">
                             @foreach ($idea->links as $link)
-                                <x-card :href="$link" class="text-primary flex items-center gap-x-2 font-medium">
+                                <x-card :href="$link" target="_blank"
+                                    class="text-primary flex items-center gap-x-2 font-medium">
                                     <x-icons.external />
                                     {{ $link }}
                                 </x-card>
