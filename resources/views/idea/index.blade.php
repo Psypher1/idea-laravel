@@ -45,7 +45,7 @@
 
         {{-- modal --}}
         <x-modal name="create-idea" title="New Idea">
-            <form x-data="{ status: 'pending' }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
+            <form x-data="{ status: 'pending', newLink: '', links: [] }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
                 @csrf
                 <x-form.field name="title" label="Title" placeholder="Enter title for your idea" autofocus
                     required />
@@ -62,6 +62,34 @@
                     <x-form.error name="status" />
                 </div>
                 <x-form.field type="textarea" name="description" label="Description" placeholder="Enter description" />
+
+                <div>
+                    <fieldset class="space-y-3">
+                        <legend class="label">Links</legend>
+
+                        <template x-for="(link, index) in links" :key="link">
+                            <div class="flex gap-x-2 items-center">
+                                <input class="input" readonly name="links[]" x-model="link" id="">
+                                <button @click="links.splice(index, 1)" type="button"
+                                    class="btn btn-outlined form-muted-icon text-red-500"
+                                    aria-label="remove link link button">
+                                    <x-icons.close class="form-muted-icon" />
+                                </button>
+                            </div>
+                        </template>
+
+                        <div class="flex gap-x-2 items-center">
+                            <input x-model="newLink" type="url" name="" placeholder="https://exmaple.com"
+                                autocomplete="url" class="input focus:ring-1 ring-primary" id="new-link">
+                            <button @click="links.push(newLink.trim()); newLink = ''" type="button"
+                                :disabled="newLink.trim().length === 0"
+                                class="btn btn-outlined text-muted-foreground disabled:cursor-not-allowed"
+                                aria-label="add new link button">
+                                <x-icons.close class="rotate-45" />
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
                 <div class="flex justify-end gap-x-5">
                     <button type="button" @click="$dispatch('close-modal')" class="btn btn-outlined">Cancel</button>
                     <button type="submit" class="btn ">Create Idea</button>
