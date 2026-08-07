@@ -1,0 +1,34 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#7917
+    [34mall[39m: [
+      [34;4mApp\Models\Idea[39;24m {#7911
+        [34mstatus[39m: [32m"[39m[32mpending[39m[32m"[39m,
+        [34muser_id[39m: [35m1[39m,
+        [34mtitle[39m: [32m"[39m[32mVel eum qui qui minus suscipit commodi.[39m[32m"[39m,
+        [34mdescription[39m: [32m"[39m[32mAut velit nihil officia laboriosam nihil iure nemo animi. Quia est quia natus quo inventore eos eum praesentium.[39m[32m"[39m,
+        [34mlinks[39m: [32m"[39m[32m[[39m\"[32mhttp:[39m\\[32m/[39m\\[32m/www.bernier.org[39m\\[32m/consequatur-possimus-magni-quia-aut-impedit.html[39m\"[32m][39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mid[39m: [35m1[39m,
+      },
+      [34;4mApp\Models\Idea[39;24m {#7905
+        [34mstatus[39m: [32m"[39m[32mpending[39m[32m"[39m,
+        [34muser_id[39m: [35m1[39m,
+        [34mtitle[39m: [32m"[39m[32mEt ipsum dicta quibusdam a nesciunt.[39m[32m"[39m,
+        [34mdescription[39m: [32m"[39m[32mIusto nihil illum repudiandae facere aut unde. Optio voluptas provident dolores quia voluptatum reprehenderit eaque. Dolorem quae omnis assumenda et laborum placeat.[39m[32m"[39m,
+        [34mlinks[39m: [32m"[39m[32m[[39m\"[32mhttp:[39m\\[32m/[39m\\[32m/hettinger.net[39m\\[32m/omnis-maiores-laborum-et-et[39m\"[32m][39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mid[39m: [35m2[39m,
+      },
+      [34;4mApp\Models\Idea[39;24m {#7918
+        [34mstatus[39m: [32m"[39m[32mpending[39m[32m"[39m,
+        [34muser_id[39m: [35m1[39m,
+        [34mtitle[39m: [32m"[39m[32mSunt error rerum aperiam ut eius et in.[39m[32m"[39m,
+        [34mdescription[39m: [32m"[39m[32mPerspiciatis corporis veritatis voluptas eum. Distinctio quibusdam tenetur ex est. Repellat vel assumenda rerum impedit. Consequuntur rem molestias error nobis possimus aperiam minima.[39m[32m"[39m,
+        [34mlinks[39m: [32m"[39m[32m[[39m\"[32mhttps:[39m\\[32m/[39m\\[32m/towne.com[39m\\[32m/molestiae-omnis-occaecati-facere-et-velit-velit.html[39m\"[32m][39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-08-07 14:09:15[39m[32m"[39m,
+        [34mid[39m: [35m3[39m,
+      },
+    ],
+  }

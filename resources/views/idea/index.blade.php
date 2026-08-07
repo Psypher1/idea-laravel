@@ -45,10 +45,11 @@
 
         {{-- modal --}}
         <x-modal name="create-idea" title="New Idea">
-            <form x-data="{ status: 'pending', newLink: '', links: [] }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
+            <form x-data="{ status: 'pending', newLink: '', links: [], newStep: '', steps: [] }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
                 @csrf
                 <x-form.field name="title" label="Title" placeholder="Enter title for your idea" autofocus
                     required />
+                {{-- status --}}
                 <div class="space-y-2">
                     <label for="status" class="label">Status</label>
                     <div class="flex gap-x-3">
@@ -61,8 +62,40 @@
                     </div>
                     <x-form.error name="status" />
                 </div>
+                {{-- description --}}
                 <x-form.field type="textarea" name="description" label="Description" placeholder="Enter description" />
 
+                {{-- steops --}}
+                <div>
+                    <fieldset class="space-y-3">
+                        <legend class="label">Actionable Steps</legend>
+
+                        <template x-for="(step, index) in steps" :key="step">
+                            <div class="flex gap-x-2 items-center">
+                                <input class="input" readonly name="steps[]" x-model="step" id="">
+                                <button @click="steps.splice(index, 1)" type="button"
+                                    class="btn btn-outlined form-muted-icon text-red-500/50"
+                                    aria-label="remove link link button">
+                                    <x-icons.close class="" />
+                                </button>
+                            </div>
+                        </template>
+
+                        <div class="flex gap-x-2 items-center">
+                            <input x-model="newStep" id="new-step" placeholder="What needs to be done?"
+                                class="input focus:ring-1 ring-primary">
+                            <button @click="steps.push(newStep.trim()); newStep = ''" type="button"
+                                :disabled="newStep.trim().length === 0"
+                                class="btn btn-outlined  disabled:cursor-not-allowed" aria-label="add new step button">
+                                <x-icons.close class="rotate-45 form-muted-icon" />
+                            </button>
+                        </div>
+
+                    </fieldset>
+                </div>
+
+
+                {{-- links --}}
                 <div>
                     <fieldset class="space-y-3">
                         <legend class="label">Links</legend>
@@ -71,9 +104,9 @@
                             <div class="flex gap-x-2 items-center">
                                 <input class="input" readonly name="links[]" x-model="link" id="">
                                 <button @click="links.splice(index, 1)" type="button"
-                                    class="btn btn-outlined form-muted-icon text-red-500"
+                                    class="btn btn-outlined form-muted-icon text-red-500/50"
                                     aria-label="remove link link button">
-                                    <x-icons.close class="form-muted-icon" />
+                                    <x-icons.close class="" />
                                 </button>
                             </div>
                         </template>
@@ -83,9 +116,8 @@
                                 autocomplete="url" class="input focus:ring-1 ring-primary" id="new-link">
                             <button @click="links.push(newLink.trim()); newLink = ''" type="button"
                                 :disabled="newLink.trim().length === 0"
-                                class="btn btn-outlined text-muted-foreground disabled:cursor-not-allowed"
-                                aria-label="add new link button">
-                                <x-icons.close class="rotate-45" />
+                                class="btn btn-outlined  disabled:cursor-not-allowed" aria-label="add new link button">
+                                <x-icons.close class="rotate-45 form-muted-icon" />
                             </button>
                         </div>
                     </fieldset>
