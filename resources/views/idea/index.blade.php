@@ -28,6 +28,12 @@
                     {{-- href="{{ $idea->path() }}">  - method in Idea model --}}
                     {{-- href="/ideas/{{ $idea->id  }}"> --}}
                     <x-card href="{{ route('idea.show', $idea) }}">
+                        @if ($idea->image_path)
+                            <div class="mb-4 -mx-4 rounded-t-lg overflow-hidden">
+                                <img src="{{ asset('storage/' . $idea->image_path) }}"
+                                    class="w-full h-auto object-cover" alt="">
+                            </div>
+                        @endif
                         <h3 class="text-lg text-foreground font-semibold">{{ $idea->title }}</h3>
                         <x-idea.status-label
                             status="{{ $idea->status }}">{{ $idea->status->label() }}</x-idea.status-label>
@@ -45,10 +51,13 @@
 
         {{-- modal --}}
         <x-modal name="create-idea" title="New Idea">
-            <form x-data="{ status: 'pending', newLink: '', links: [], newStep: '', steps: [] }" action="{{ route('idea.store') }}" method="POST" class=" space-y-5">
+            <form x-data="{ status: 'pending', newLink: '', links: [], newStep: '', steps: [] }" action="{{ route('idea.store') }}" method="POST"
+                enctype="multipart/form-data" class=" space-y-5">
                 @csrf
+                {{-- title --}}
                 <x-form.field name="title" label="Title" placeholder="Enter title for your idea" autofocus
                     required />
+
                 {{-- status --}}
                 <div class="space-y-2">
                     <label for="status" class="label">Status</label>
@@ -62,8 +71,16 @@
                     </div>
                     <x-form.error name="status" />
                 </div>
+
                 {{-- description --}}
                 <x-form.field type="textarea" name="description" label="Description" placeholder="Enter description" />
+
+
+                <div>
+                    <label class="label" for="image">Featured</label>
+                    <input type="file" name="image" class="" />
+                    <x-form.error name="image" />
+                </div>
 
                 {{-- steops --}}
                 <div>
@@ -94,7 +111,6 @@
                     </fieldset>
                 </div>
 
-
                 {{-- links --}}
                 <div>
                     <fieldset class="space-y-3">
@@ -116,12 +132,14 @@
                                 autocomplete="url" class="input focus:ring-1 ring-primary" id="new-link">
                             <button @click="links.push(newLink.trim()); newLink = ''" type="button"
                                 :disabled="newLink.trim().length === 0"
-                                class="btn btn-outlined  disabled:cursor-not-allowed" aria-label="add new link button">
+                                class="btn btn-outlined  disabled:cursor-not-allowed"
+                                aria-label="add new link button">
                                 <x-icons.close class="rotate-45 form-muted-icon" />
                             </button>
                         </div>
                     </fieldset>
                 </div>
+
                 <div class="flex justify-end gap-x-5">
                     <button type="button" @click="$dispatch('close-modal')" class="btn btn-outlined">Cancel</button>
                     <button type="submit" class="btn ">Create Idea</button>

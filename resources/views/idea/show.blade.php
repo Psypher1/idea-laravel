@@ -23,6 +23,12 @@
             </div>
 
             <div class="mt-8 space-y-5">
+                @if ($idea->image_path)
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="{{ asset('storage/' . $idea->image_path) }}" class="w-full h-auto object-cover"
+                            alt="">
+                    </div>
+                @endif
                 <h1 class=" text-3xl font-bold">{{ $idea->title }}</h1>
                 <div class="mt-2 flex items-center gap-x-3 ">
                     {{-- <x-idea.status-label status="{{ $idea->status->value }}"> --}}
