@@ -30,8 +30,8 @@
                     <x-card href="{{ route('idea.show', $idea) }}">
                         @if ($idea->image_path)
                             <div class="mb-4 -mx-4 rounded-t-lg overflow-hidden">
-                                <img src="{{ asset('storage/' . $idea->image_path) }}"
-                                    class="w-full h-auto object-cover" alt="">
+                                <img src="{{ asset('storage/' . $idea->image_path) }}" class="w-full h-60 object-cover"
+                                    alt="">
                             </div>
                         @endif
                         <h3 class="text-lg text-foreground font-semibold">{{ $idea->title }}</h3>
