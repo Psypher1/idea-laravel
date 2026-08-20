@@ -9,7 +9,7 @@
                     Back to Ideas</a>
 
                 <div class="flex items-center gap-x-3">
-                    <button class="btn btn-outlined">
+                    <button x-data @click="$dispatch('open-modal', 'edit-idea')" class="btn btn-outlined">
                         <x-icons.pencil />
                         Edit
                     </button>
@@ -42,11 +42,13 @@
 
                 </div>
 
-                <x-card class="">
-                    <div class="cursor-pointer">
-                        <p>{{ $idea->description }}</p>
-                    </div>
-                </x-card>
+                @if ($idea->description)
+                    <x-card class="">
+                        <div class="cursor-pointer">
+                            <p>{{ $idea->description }}</p>
+                        </div>
+                    </x-card>
+                @endif
 
                 {{-- steps --}}
                 @if ($idea->steps->count())
@@ -90,5 +92,7 @@
                 @endif
             </div>
         </div>
+
     </x-layout.section>
+    <x-idea.modal :idea="$idea" />
 </x-layout>

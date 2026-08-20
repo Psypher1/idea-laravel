@@ -10,6 +10,12 @@ class IdeaPolicy
     public function workWith(User $user, Idea $idea): bool
     {
         return $idea->user->is($user);
+        // return $idea->user_id === $user->id;
+    }
+
+    public function modify(User $user, Idea $idea): bool
+    {
+        return false;
     }
     /**
      * Determine whether the user can view any models.

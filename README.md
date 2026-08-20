@@ -8,3 +8,7 @@ james@mail.com
 password
 
 App\Models\Idea::factory(3)->create(['user_id' => 1])
+
+## Pending
+
+- Tests
