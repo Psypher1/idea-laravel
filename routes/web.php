@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\IdeaImageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StepController;
@@ -48,3 +49,6 @@ Route::get('/auth/signin', [SessionController::class, 'create'])->name('login')-
 Route::post('/signin', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('/signout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
