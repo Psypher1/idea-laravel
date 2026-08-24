@@ -20,7 +20,7 @@ class SessionController extends Controller
             'password' => ['required', 'min:6', 'max:255'],
         ]);
 
-        if (! Auth::attempt($attributes)) {
+        if (!Auth::attempt($attributes)) {
             // return redirect()->back();
             return back()
                 ->withErrors(['password' => 'We were unable to authenticate the provided credentials'])
@@ -29,7 +29,7 @@ class SessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/')->with('success', 'We are glad to have you!');
+        return redirect()->intended(route('idea.index'))->with('success', 'We are glad to have you!');
 
     }
 

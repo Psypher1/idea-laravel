@@ -10,11 +10,11 @@
         <div class="flex items-center gap-x-5">
 
             @auth
-                <a href="{{ route('profile.edit') }}">Edit profile</a>
+                <a href="{{ route('profile.edit') }}" class="btn btn-outlined">Edit profile</a>
                 <div class= "flex gap-x-6 items-center">
                     <form action="/signout" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-danger"> Sign out </button>
+                        <button type="submit" class="btn btn-outlined text-red-500/70"> Sign out </button>
                     </form>
                 </div>
             @endauth

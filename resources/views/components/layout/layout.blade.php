@@ -20,6 +20,12 @@
             {{ $value }}
         </div>
     @endsession
+
+    <footer class="p-4 bg-card">
+        <p class="text-center">
+            Laravel Idea &copy;{{ date('Y') }}
+        </p>
+    </footer>
 </body>
 
 </html>
