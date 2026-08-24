@@ -2,7 +2,13 @@
 
 <x-modal name="{{ $idea->exists ? 'edit-idea' : 'create-idea' }}" title="{{ $idea->exists ? 'Edit Idea' : 'New Idea' }}">
     {{-- defaulting links ot array wasn't necessary for me --}}
-    <form x-data="{ status: @js(old('status', $idea->status->value)), newLink: '', links: @js(old('links', $idea->links ?? [])), newStep: '', steps: @js(old('steps', $idea->steps->map(fn($step) => $step->description))) }" action="{{ $idea->exists ? route('idea.update', $idea) : route('idea.store') }}"
+    <form x-data="{
+        status: @js(old('status', $idea->status->value)),
+        newLink: '',
+        links: @js(old('links', $idea->links ?? [])),
+        newStep: '',
+        steps: @js(old('steps', $idea->steps->map->only(['id', 'description', 'completed'])))
+    }" action="{{ $idea->exists ? route('idea.update', $idea) : route('idea.store') }}"
         method="POST" enctype="multipart/form-data" class=" space-y-5">
         @csrf
         @if ($idea->exists)
@@ -46,32 +52,37 @@
 
         {{-- steops --}}
         <div>
-            <fieldset class="space-y-3">
+            <fieldset class="space-y-2">
                 <legend class="label">Actionable Steps</legend>
 
-                <template x-for="(step, index) in steps" :key="step">
+                <template x-for="(step, index) in steps" :key="step.id || index">
                     <div class="flex gap-x-2 items-center">
-                        <input class="input" readonly name="steps[]" x-model="step" id="">
-                        <button @click="steps.splice(index, 1)" type="button"
-                            class="btn btn-outlined form-muted-icon text-red-500/50"
-                            aria-label="remove link link button">
-                            <x-icons.close class="" />
+                        <input :name="`steps[${index}][description]`" x-model="step.description" class="input">
+                        <input type="hidden" :name="`steps[${index}][completed]`" :value="step.completed ? '1' : '0'"
+                            class="input"> {{-- x-model= --}}
+
+                        <button type="button" aria-label="Remove step" @click="steps.splice(index, 1)"
+                            class="form-muted-icon text-red-500/50 btn btn-outlined">
+                            <x-icons.close />
                         </button>
                     </div>
                 </template>
 
                 <div class="flex gap-x-2 items-center">
-                    <input x-model="newStep" id="new-step" placeholder="What needs to be done?"
-                        class="input focus:ring-1 ring-primary">
-                    <button @click="steps.push(newStep.trim()); newStep = ''" type="button"
-                        :disabled="newStep.trim().length === 0" class="btn btn-outlined  disabled:cursor-not-allowed"
-                        aria-label="add new step button">
-                        <x-icons.close class="rotate-45 form-muted-icon" />
+                    <input x-model="newStep" id="new-step" placeholder="What needs to be done?" class="input flex-1"
+                        spellcheck="false">
+                    <button type="button"
+                        @click="
+                steps.push({ description: newStep.trim(), completed: false });
+                newStep = '';
+              "
+                        :disabled="newStep.trim().length === 0" aria-label="Add a new step" class="form-muted-icon">
+                        <x-icons.close class="rotate-45" />
                     </button>
                 </div>
-
             </fieldset>
         </div>
+
 
         {{-- links --}}
         <div>
